@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "263213588416",
+    "firebase_url": "https://aboutaustralia-24cc4-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "aboutaustralia-24cc4",
+    "storage_bucket": "aboutaustralia-24cc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263213588416:android:4c68dfb7c7ec4853aa7225",
+        "android_client_info": {
+          "package_name": "com.sawsanamer.about_australia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263213588416-m2gaf2qn6eb1v1vmqfbql5hce80611ai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sawsanamer.about_australia",
+            "certificate_hash": "29e727b67dc56d111eaf0899b06961ccd3ff174c"
+          }
+        },
+        {
+          "client_id": "263213588416-hd8ih8i459i1gsanm5dgn1sfm0p27k7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7py4hkmASvTLI4RnOFO7ElJ-WF8ptoys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263213588416-hd8ih8i459i1gsanm5dgn1sfm0p27k7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
