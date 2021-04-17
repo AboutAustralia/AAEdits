@@ -4,7 +4,12 @@ import 'package:about_australia/theme/app_colors.dart';
 
 import 'package:flutter/material.dart';
 
-class ListMap extends StatelessWidget {
+class ListMap extends StatefulWidget {
+  @override
+  _ListMapState createState() => _ListMapState();
+}
+
+class _ListMapState extends State<ListMap> {
   @override
   Widget build(BuildContext context) {
     return Container(

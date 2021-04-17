@@ -12,7 +12,12 @@ import 'package:flutter/material.dart';
 //                                         letterSpacing: 2,
 //                                         fontWeight: FontWeight.w500))
 
-class AboutAustralia extends StatelessWidget {
+class AboutAustralia extends StatefulWidget {
+  @override
+  _AboutAustraliaState createState() => _AboutAustraliaState();
+}
+
+class _AboutAustraliaState extends State<AboutAustralia> {
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(

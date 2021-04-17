@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
 
-class TravelToAustralia extends StatelessWidget {
+class TravelToAustralia extends StatefulWidget {
+  @override
+  _TravelToAustraliaState createState() => _TravelToAustraliaState();
+}
+
+class _TravelToAustraliaState extends State<TravelToAustralia> {
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(
