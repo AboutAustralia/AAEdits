@@ -6,8 +6,6 @@ import 'package:about_australia/data.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
 import 'package:flutter/material.dart';
-
-
 // Text("عن استراليا",
 //                                     style: AppTypography.headerMedium.copyWith(
 //                                         fontSize: 24,

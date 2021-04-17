@@ -18,7 +18,7 @@ class BottomNavigationBarController extends StatefulWidget {
 class _BottomNavigationBarControllerState
     extends State<BottomNavigationBarController> {
   int currentIndex;
-  _BottomNavigationBarControllerState({this.currentIndex = 0});
+  _BottomNavigationBarControllerState({this.currentIndex = 1});
   setCurrentIndex(index) {
     setState(() {
       this.currentIndex = index;

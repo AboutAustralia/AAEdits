@@ -2,11 +2,8 @@ import 'package:about_australia/components/google_maps/background_container.dart
 import 'package:about_australia/components/travel_information_card.dart';
 import 'package:about_australia/data.dart';
 import 'package:flutter/material.dart';
-import 'package:about_australia/components/google_maps/background_container.dart';
-import 'package:about_australia/components/about_australia_card.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
-import 'package:about_australia/views/image_popup_page.dart';
 
 class TravelToAustralia extends StatelessWidget {
   @override
