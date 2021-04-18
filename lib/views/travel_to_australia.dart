@@ -88,7 +88,8 @@ class _TravelToAustraliaState extends State<TravelToAustralia> {
                             return TravelInformationCard(
                                 cardInformationModel: CardInformationModel(
                                     title: all[index]['title'],
-                                    article: all[index]['article'],
+                                    article: all[index]['article']
+                                        .replaceAll(r'\n', '\n'),
                                     subTitle: all[index]['subTitle'],
                                     imageUrl: all[index]['assetPath']));
                           }),
