@@ -40,7 +40,7 @@ class AboutAustraliaCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           image: DecorationImage(
                               image: cardInformationModel.imageUrl == null
-                                  ? AssetImage(cardInformationModel.assetPath)
+                                  ? NetworkImage(cardInformationModel.assetPath)
                                   : NetworkImage(cardInformationModel.imageUrl),
                               fit: BoxFit.cover))),
                   Align(
