@@ -21,7 +21,7 @@ class ImagePopupPage extends StatelessWidget {
                 color: AppColors.darkBlue,
                 image: DecorationImage(
                     image: cardInformationModel.imageUrl == null
-                        ? AssetImage(cardInformationModel.assetPath)
+                        ? NetworkImage(cardInformationModel.assetPath)
                         : NetworkImage(cardInformationModel.imageUrl),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.only(

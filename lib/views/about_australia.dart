@@ -1,11 +1,14 @@
 import 'package:about_australia/australia_icons_icons.dart';
 import 'package:about_australia/components/about_australia_card.dart';
+import 'package:about_australia/components/card_model.dart';
 import 'package:about_australia/components/google_maps/background_container.dart';
 import 'package:about_australia/components/travel_information_card.dart';
 import 'package:about_australia/data.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 // Text("عن استراليا",
 //                                     style: AppTypography.headerMedium.copyWith(
 //                                         fontSize: 24,
@@ -18,6 +21,16 @@ class AboutAustralia extends StatefulWidget {
 }
 
 class _AboutAustraliaState extends State<AboutAustralia> {
+  Stream<QuerySnapshot> firebaseAboutAustraliaStream;
+
+
+  @override
+  void initState() {
+    super.initState();
+    firebaseAboutAustraliaStream =
+        FirebaseFirestore.instance.collection('aboutAustraliaArticles').snapshots();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(
@@ -182,19 +195,51 @@ class _AboutAustraliaState extends State<AboutAustralia> {
                               ),
                               SizedBox(
                                 height: 200,
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      aboutAustraliaInformationModel.length,
-                                  itemBuilder: (context, index) {
-                                    return AboutAustraliaCard(
-                                      cardInformationModel:
-                                          aboutAustraliaInformationModel[index],
-                                    );
-                                  },
-                                ),
+                                child: StreamBuilder<QuerySnapshot>(
+                                    stream: firebaseAboutAustraliaStream,
+                                    builder:  (BuildContext context,
+                                        AsyncSnapshot<QuerySnapshot> querySnapshot){
+                                      if (querySnapshot.hasError) {
+                                        return Center(
+                                          child: Text(
+                                            "حدث خطأ في الشبكة",
+                                            style: AppTypography.bodyMedium
+                                                .copyWith(color: AppColors.darkBlue),
+                                          ),
+                                        );
+                                      }
+                                      if (querySnapshot.connectionState == ConnectionState.waiting) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+                                      List articles = querySnapshot.data.docs;
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: ClampingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                        articles.length,
+                                        itemBuilder: (context, index) {
+                                          List<CardInformationModel> finalArticlesList = [];
+                                          for(int i = 0; i<articles.length; i++){
+                                            finalArticlesList.add(CardInformationModel(
+                                              title: articles[i]['title'],
+                                              assetPath: articles[i]['assetPath'],
+                                              subTitle: articles[i]['subTitle'],
+                                              article: articles[i]['article']
+
+                                            ));
+                                          }
+
+                                          return AboutAustraliaCard(
+                                            cardInformationModel:
+                                            finalArticlesList[index],
+                                          );
+                                        },
+                                      );
+                                    }
+                                )
                               )
                             ],
                           ),
