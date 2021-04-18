@@ -1,6 +1,8 @@
+import 'package:about_australia/components/card_model.dart';
 import 'package:about_australia/components/google_maps/background_container.dart';
 import 'package:about_australia/components/travel_information_card.dart';
 import 'package:about_australia/data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
@@ -11,6 +13,16 @@ class TravelToAustralia extends StatefulWidget {
 }
 
 class _TravelToAustraliaState extends State<TravelToAustralia> {
+  Stream<QuerySnapshot> firebaseStream;
+
+  @override
+  void initState() {
+    firebaseStream =
+        FirebaseFirestore.instance.collection('travelArticles').snapshots();
+    ;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BackgroundContainer(
@@ -45,14 +57,44 @@ class _TravelToAustraliaState extends State<TravelToAustralia> {
               SizedBox(
                 height: 16,
               ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: travelCardInformationModel.length,
-                    itemBuilder: (context, index) {
-                      return TravelInformationCard(
-                        cardInformationModel: travelCardInformationModel[index],
-                      );
-                    }),
+              StreamBuilder(
+                stream: firebaseStream,
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.hasError) {
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: Text(
+                          "حدث خطأ في الشبكة",
+                          style: AppTypography.bodyMedium
+                              .copyWith(color: AppColors.darkBlue),
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else {
+                    List all = snapshot.data.docs;
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: travelCardInformationModel.length,
+                          itemBuilder: (context, index) {
+                            return TravelInformationCard(
+                                cardInformationModel: CardInformationModel(
+                                    title: all[index]['title'],
+                                    article: all[index]['article'],
+                                    subTitle: all[index]['subTitle'],
+                                    imageUrl: all[index]['assetPath']));
+                          }),
+                    );
+                  }
+                },
               ),
             ],
           ),

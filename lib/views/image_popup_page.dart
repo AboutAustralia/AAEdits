@@ -18,6 +18,7 @@ class ImagePopupPage extends StatelessWidget {
             height: 300,
             width: double.infinity,
             decoration: BoxDecoration(
+                color: AppColors.darkBlue,
                 image: DecorationImage(
                     image: cardInformationModel.imageUrl == null
                         ? AssetImage(cardInformationModel.assetPath)
@@ -30,12 +31,12 @@ class ImagePopupPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     IconButton(
                         icon: Icon(
-                          Icons.arrow_back_rounded,
+                          Icons.arrow_back,
                           color: cardInformationModel.backButonColor != null
                               ? cardInformationModel.backButonColor
                               : Colors.white,
