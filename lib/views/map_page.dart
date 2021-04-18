@@ -231,29 +231,25 @@ class MapPageState extends State<MapPage> {
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
               } else {
                 List all = snapshot.data.docs;
-                return Expanded(
-                  child: ScrollablePositionedList.builder(
-                    itemCount: all.length,
-                    itemBuilder: (context, index) {
-                      return AboutAustraliaCard(
-                        cardInformationModel: CardInformationModel(
-                            title: all[index]['title'],
-                            article: all[index]['article']
-                                .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
-                            subTitle: all[index]['subTitle'],
-                            imageUrl: all[index]['assetPath']),
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                    itemScrollController: itemScrollController,
-                  ),
+                return ScrollablePositionedList.builder(
+                  itemCount: all.length,
+                  itemBuilder: (context, index) {
+                    return AboutAustraliaCard(
+                      cardInformationModel: CardInformationModel(
+                          title: all[index]['title'],
+                          article: all[index]['article']
+                              .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
+                          subTitle: all[index]['subTitle'],
+                          imageUrl: all[index]['assetPath']),
+                    );
+                  },
+                  scrollDirection: Axis.horizontal,
+                  itemScrollController: itemScrollController,
                 );
               }
             }

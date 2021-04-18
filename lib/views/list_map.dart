@@ -32,40 +32,34 @@ class _ListMapState extends State<ListMap> {
           stream: firebaseStream,
           builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasError) {
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: Text(
-                    "حدث خطأ في الشبكة",
-                    style: AppTypography.bodyMedium
-                        .copyWith(color: AppColors.darkBlue),
-                  ),
+              return Center(
+                child: Text(
+                  "حدث خطأ في الشبكة",
+                  style: AppTypography.bodyMedium
+                      .copyWith(color: AppColors.darkBlue),
                 ),
               );
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              return Center(
+                child: CircularProgressIndicator(),
               );
             } else {
               List all = snapshot.data.docs;
-              return Expanded(
-                child: ListView.builder(
-                    itemCount: all.length,
-                    itemBuilder: (context, index) {
-                      return TravelInformationCard(
-                        cardInformationModel: CardInformationModel(
-                            title: all[index]['title'],
-                            article: all[index]['article']
-                                .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
-                            subTitle: all[index]['subTitle'],
-                            imageUrl: all[index]['assetPath']),
-                        descriptionColor: AppColors.neutrals[600],
-                      );
-                    }),
-              );
+              return ListView.builder(
+                  itemCount: all.length,
+                  itemBuilder: (context, index) {
+                    return TravelInformationCard(
+                      cardInformationModel: CardInformationModel(
+                          title: all[index]['title'],
+                          article: all[index]['article']
+                              .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
+                          subTitle: all[index]['subTitle'],
+                          imageUrl: all[index]['assetPath']),
+                      descriptionColor: AppColors.neutrals[600],
+                    );
+                  });
             }
           }
         )

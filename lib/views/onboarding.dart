@@ -140,26 +140,23 @@ class _OnBoardingState extends State<OnBoarding> {
                               left: 5, right: 10, top: 10, bottom: 10),
                           child: Container(
                             height: 50,
-                            child: Expanded(
-                              flex: 6,
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigationBarController(
-                                                currentIndex: 1)),
-                                  );
-                                },
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                color: Colors.transparent,
-                                child: Text("المتابعة بدون حساب",
-                                    style: AppTypography.bodyMedium
-                                        .copyWith(color: Colors.white)),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BottomNavigationBarController(
+                                              currentIndex: 1)),
+                                );
+                              },
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
                               ),
+                              color: Colors.transparent,
+                              child: Text("المتابعة بدون حساب",
+                                  style: AppTypography.bodyMedium
+                                      .copyWith(color: Colors.white)),
                             ),
                           ),
                         ),
@@ -168,37 +165,34 @@ class _OnBoardingState extends State<OnBoarding> {
                               left: 10, right: 5, top: 10, bottom: 10),
                           child: Container(
                             height: 50,
-                            child: Expanded(
-                              flex: 4,
-                              child: FlatButton(
-                                onPressed: () {
-                                  _GooglesignIn().then((value) => Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigationBarController(
-                                                currentIndex: 1)),
-                                  ));
-                                  
-                                },
-                                color: Colors.grey.withOpacity(0.4),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.google,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text("تسجيل دخول",
-                                        style: AppTypography.bodyMedium
-                                            .copyWith(color: Colors.white)),
-                                  ],
-                                ),
+                            child: FlatButton(
+                              onPressed: () {
+                                _GooglesignIn().then((value) => Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BottomNavigationBarController(
+                                              currentIndex: 1)),
+                                ));
+
+                              },
+                              color: Colors.grey.withOpacity(0.4),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.google,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text("تسجيل دخول",
+                                      style: AppTypography.bodyMedium
+                                          .copyWith(color: Colors.white)),
+                                ],
                               ),
                             ),
                           ),
