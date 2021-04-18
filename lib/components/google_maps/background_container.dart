@@ -1,9 +1,6 @@
 import 'dart:ui';
 
 import 'package:about_australia/components/bottom_nvaigation_bar.dart';
-import 'package:about_australia/theme/app_typography.dart';
-import 'package:about_australia/views/list_map.dart';
-import 'package:about_australia/views/map_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

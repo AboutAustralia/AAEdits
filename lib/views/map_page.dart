@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:about_australia/theme/app_typography.dart';
+import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/components/about_australia_card.dart';
 import 'package:about_australia/components/card_model.dart';
-import 'package:about_australia/data.dart';
-import '../components/google_maps/background_container.dart';
-import 'package:about_australia/views/list_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -48,6 +47,8 @@ class MapPageState extends State<MapPage> {
     getBytesFromAsset('assets/images/loca.png', 115).then((onValue) {
       customIcon = BitmapDescriptor.fromBytes(onValue);
     });
+    firebaseStream =
+        FirebaseFirestore.instance.collection('mapLocations').snapshots();
     super.initState();
   }
 
@@ -161,6 +162,7 @@ class MapPageState extends State<MapPage> {
       ),
     ].toSet();
   }
+  Stream<QuerySnapshot> firebaseStream;
 
   double zoomVal = 5.0;
   @override
@@ -213,16 +215,49 @@ class MapPageState extends State<MapPage> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20.0),
         height: 200.0,
-        child: ScrollablePositionedList.builder(
-          itemCount: mapsCardsInformation.length,
-          itemBuilder: (context, index) {
-            return AboutAustraliaCard(
-              cardInformationModel: mapsCardsInformation[index],
-            );
-          },
-          scrollDirection: Axis.horizontal,
-          itemScrollController: itemScrollController,
-        ),
+        child:StreamBuilder(
+            stream: firebaseStream,
+            builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasError) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      "حدث خطأ في الشبكة",
+                      style: AppTypography.bodyMedium
+                          .copyWith(color: AppColors.darkBlue),
+                    ),
+                  ),
+                );
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else {
+                List all = snapshot.data.docs;
+                return Expanded(
+                  child: ScrollablePositionedList.builder(
+                    itemCount: all.length,
+                    itemBuilder: (context, index) {
+                      return AboutAustraliaCard(
+                        cardInformationModel: CardInformationModel(
+                            title: all[index]['title'],
+                            article: all[index]['article']
+                                .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
+                            subTitle: all[index]['subTitle'],
+                            imageUrl: all[index]['assetPath']),
+                      );
+                    },
+                    scrollDirection: Axis.horizontal,
+                    itemScrollController: itemScrollController,
+                  ),
+                );
+              }
+            }
+        ) ,
         // child: ListView(
         //   scrollDirection: Axis.horizontal,
         //   children: <Widget>[

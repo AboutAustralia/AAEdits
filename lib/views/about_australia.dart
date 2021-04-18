@@ -2,8 +2,6 @@ import 'package:about_australia/australia_icons_icons.dart';
 import 'package:about_australia/components/about_australia_card.dart';
 import 'package:about_australia/components/card_model.dart';
 import 'package:about_australia/components/google_maps/background_container.dart';
-import 'package:about_australia/components/travel_information_card.dart';
-import 'package:about_australia/data.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
 import 'package:flutter/material.dart';
@@ -227,7 +225,7 @@ class _AboutAustraliaState extends State<AboutAustralia> {
                                               title: articles[i]['title'],
                                               assetPath: articles[i]['assetPath'],
                                               subTitle: articles[i]['subTitle'],
-                                              article: articles[i]['article']
+                                              article: articles[i]['article'].replaceAll(r'\n', '\n').replaceAll(r'\"', '\"')
 
                                             ));
                                           }

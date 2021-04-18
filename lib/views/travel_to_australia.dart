@@ -1,7 +1,6 @@
 import 'package:about_australia/components/card_model.dart';
 import 'package:about_australia/components/google_maps/background_container.dart';
 import 'package:about_australia/components/travel_information_card.dart';
-import 'package:about_australia/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:about_australia/theme/app_colors.dart';
@@ -19,7 +18,7 @@ class _TravelToAustraliaState extends State<TravelToAustralia> {
   void initState() {
     firebaseStream =
         FirebaseFirestore.instance.collection('travelArticles').snapshots();
-    ;
+
     super.initState();
   }
 
@@ -83,13 +82,13 @@ class _TravelToAustraliaState extends State<TravelToAustralia> {
                     List all = snapshot.data.docs;
                     return Expanded(
                       child: ListView.builder(
-                          itemCount: travelCardInformationModel.length,
+                          itemCount: all.length,
                           itemBuilder: (context, index) {
                             return TravelInformationCard(
                                 cardInformationModel: CardInformationModel(
                                     title: all[index]['title'],
                                     article: all[index]['article']
-                                        .replaceAll(r'\n', '\n'),
+                                        .replaceAll(r'\n', '\n').replaceAll(r'\"', '\"'),
                                     subTitle: all[index]['subTitle'],
                                     imageUrl: all[index]['assetPath']));
                           }),

@@ -1,4 +1,3 @@
-import 'package:about_australia/components/google_maps/background_container.dart';
 import 'package:about_australia/theme/app_colors.dart';
 import 'package:about_australia/theme/app_typography.dart';
 import 'package:about_australia/views/list_map.dart';
